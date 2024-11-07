@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using ChurchPlus_v1._0.Models;
 using ChurchPlusAPI_v1._0.Models;
 
 
