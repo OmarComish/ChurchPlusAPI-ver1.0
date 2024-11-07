@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ChurchPlus_v1._0.Models
+namespace ChurchPlusAPI_v1._0.Models
 {
     public class Receipts
     {
