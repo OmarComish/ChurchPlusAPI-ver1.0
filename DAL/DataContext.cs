@@ -9,10 +9,6 @@ public class DataContext: DbContext
 {
     public DataContext(DbContextOptions options): base(options)
     {
-          /*IConfigurationRoot configuration = new ConfigurationBuilder()
-          .SetBasePath(Environment.CurrentDirectory)
-          .AddJsonFile("appsettings.json")
-          .Build();*/
           
     }
     public DbSet<AppLogs> AppLogs {get; set;}
