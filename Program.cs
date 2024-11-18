@@ -1,3 +1,4 @@
+using ChurchPlusAPI_v1._0.DAL;
 using ChurchPlusAPI_v1.DAL;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Internal;
@@ -27,6 +28,16 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapControllers();
+
+try
+{    
+   DbInitializer.InitDb(app);
+}
+catch(Exception e)
+{
+   Console.WriteLine(e.Message);
+}
 
 app.Run();
 
