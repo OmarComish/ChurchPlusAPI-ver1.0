@@ -1,3 +1,4 @@
+using ChurchPlusAPI_v1._0.BusinessLogic;
 using ChurchPlusAPI_v1._0.DAL;
 using ChurchPlusAPI_v1.DAL;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<DataContext>(opt=>{
    .EnableDetailedErrors();
 });
 
+builder.Services.AddTransient<IOfferings,OfferingRepository>();
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
