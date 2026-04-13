@@ -1,15 +1,17 @@
 using ChurchPlusAPI_v1.DAL;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<DataContext>(opt=>{
-   opt.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),new MySqlServerVersion(new Version(8,0,29)))
+builder.Services.AddDbContext<DataContext>(options=>{
+
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+  /* opt.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),new MySqlServerVersion(new Version(8,0,29)))
    .LogTo(Console.WriteLine, LogLevel.Information)
    .EnableSensitiveDataLogging()
-   .EnableDetailedErrors();
+   .EnableDetailedErrors();*/
 });
 
 // Add services to the container.
@@ -20,7 +22,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsStaging() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
