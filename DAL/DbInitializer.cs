@@ -25,7 +25,7 @@ public class DbInitializer
             };
             context.AddRange(_users);
             context.SaveChanges();
-            Console.WriteLine("Seeding user profile data completed successfully!");
+            Console.WriteLine("Seeding user profile data completed successfully");
         }
     }
 }
