@@ -26,6 +26,7 @@ public class PledgeService : IPledges
             rs.Status = 1;
             await  _context.AddAsync(rs);
             await _context.SaveChangesAsync();
+            response.Status ="success";
             response.Message =$"Pledge for {createpledge.PledgedBy} added successully!";
         }
         return response;
