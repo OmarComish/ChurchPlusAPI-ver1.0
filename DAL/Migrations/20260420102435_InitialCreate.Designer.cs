@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChurchPlusAPI_v1._0.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260413210618_InitialCreate")]
+    [Migration("20260420102435_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -221,6 +221,12 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                     b.Property<int>("ApprovedBy")
                         .HasColumnType("integer");
 
+                    b.Property<int>("CauseCategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("DateApproved")
                         .HasColumnType("timestamp with time zone");
 
@@ -236,8 +242,8 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                     b.Property<DateTime>("DatePledged")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("PledgeId")
-                        .HasColumnType("integer");
+                    b.Property<string>("PledgedBy")
+                        .HasColumnType("text");
 
                     b.Property<int>("ReceivedBy")
                         .HasColumnType("integer");

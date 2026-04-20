@@ -218,6 +218,12 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                     b.Property<int>("ApprovedBy")
                         .HasColumnType("integer");
 
+                    b.Property<int>("CauseCategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("DateApproved")
                         .HasColumnType("timestamp with time zone");
 
@@ -233,8 +239,8 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                     b.Property<DateTime>("DatePledged")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("PledgeId")
-                        .HasColumnType("integer");
+                    b.Property<string>("PledgedBy")
+                        .HasColumnType("text");
 
                     b.Property<int>("ReceivedBy")
                         .HasColumnType("integer");

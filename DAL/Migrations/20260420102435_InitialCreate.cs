@@ -116,7 +116,8 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PledgeId = table.Column<int>(type: "integer", nullable: false),
+                    CauseCategoryId = table.Column<int>(type: "integer", nullable: false),
+                    PledgedBy = table.Column<string>(type: "text", nullable: true),
                     AmountPledged = table.Column<double>(type: "double precision", nullable: false),
                     ActualAmountFulfilled = table.Column<double>(type: "double precision", nullable: false),
                     DatePledged = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -124,6 +125,7 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                     ReceivedBy = table.Column<int>(type: "integer", nullable: false),
                     ApprovedBy = table.Column<int>(type: "integer", nullable: false),
                     DateApproved = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<int>(type: "integer", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     DateModified = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)

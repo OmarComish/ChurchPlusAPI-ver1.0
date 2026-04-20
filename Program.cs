@@ -1,9 +1,14 @@
+using ChurchPlusAPI_v1._0.Application.Interfaces;
+using ChurchPlusAPI_v1._0.Application.Services;
+using ChurchPlusAPI_v1._0.RequestHelpers;
 using ChurchPlusAPI_v1.DAL;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddTransient<IPledges, PledgeService>();
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 builder.Services.AddDbContext<DataContext>(options=>{
 
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -29,6 +34,16 @@ if (app.Environment.IsDevelopment() || app.Environment.IsStaging() || app.Enviro
 }
 
 app.UseHttpsRedirection();
+app.MapControllers();
+
+try
+{
+    DbInitializer.DbInit(app);
+}
+catch(Exception e)
+{
+    Console.WriteLine(e);
+}
 
 app.Run();
 
