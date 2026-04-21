@@ -1,19 +1,15 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 
 namespace ChurchPlusAPI_v1._0.Models
 {
-    public class RecordStatus
+    public enum RecordStatus
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int CreatedBy { get; set; }
-        public DateTime DateCreated {get; set; }
-        public int ModifiedBy { get; set; }
-        public DateTime? DateModified {get; set; }
+        Active = 1,
+        Disabled,
+        Discarded,
+        Approved,
+        Denied,
+        Pending,
+        Ownered
     }
 }

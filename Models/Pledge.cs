@@ -11,8 +11,8 @@ namespace ChurchPlusAPI_v1._0.Models
         public int Id { get; set; }
         public int CauseCategoryId { get; set; }
         public string PledgedBy {get; set;}
-        public double AmountPledged { get; set; }
-        public double ActualAmountFulfilled { get; set; }
+        public decimal AmountPledged { get; set; }
+        public decimal ActualAmountFulfilled { get; set; }
         public DateTime DatePledged { get; set; }
         public DateTime? DateFulfilled { get; set; }
         public int ReceivedBy { get; set; }
@@ -20,7 +20,12 @@ namespace ChurchPlusAPI_v1._0.Models
         public DateTime DateApproved { get; set; }
         public int CreatedBy {get; set;}
         public DateTime DateCreated {get; set;}  
-        public int Status { get; set; }
+        public int ApprovalStatus { get; set; }
+        public RecordStatus PledgeStatus {get; set;}
+        
         public DateTime? DateModified { get; set; }
+        
+        //Navigation property
+        public CauseCategory CauseCategory { get; set; }
     }
 }

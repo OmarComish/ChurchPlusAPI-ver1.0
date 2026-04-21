@@ -16,5 +16,8 @@ namespace ChurchPlusAPI_v1._0.Models
         public int ModifiedBy { get; set; }
         public DateTime? DateModified { get; set; }
         public int Status { get; set; }
+        
+        //navigation property
+         public ICollection<Pledge> Pledges { get; set; } = new List<Pledge>();
     }
 }

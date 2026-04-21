@@ -250,6 +250,8 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CauseCategoryId");
+
                     b.ToTable("Pledges");
                 });
 
@@ -282,34 +284,6 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Receipts");
-                });
-
-            modelBuilder.Entity("ChurchPlusAPI_v1._0.Models.RecordStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("DateModified")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("ModifiedBy")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RecordStatuses");
                 });
 
             modelBuilder.Entity("ChurchPlusAPI_v1._0.Models.User", b =>
@@ -399,6 +373,17 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserRoles");
+                });
+
+            modelBuilder.Entity("ChurchPlusAPI_v1._0.Models.Pledge", b =>
+                {
+                    b.HasOne("ChurchPlusAPI_v1._0.Models.CauseCategory", "CauseCategory")
+                        .WithMany()
+                        .HasForeignKey("CauseCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CauseCategory");
                 });
 #pragma warning restore 612, 618
         }

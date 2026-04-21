@@ -8,5 +8,8 @@ public class MappingProfiles: Profile
     public MappingProfiles()
     {
         CreateMap<Pledge, CreatePledgeDto>().ReverseMap();
+        CreateMap<Pledge, ReadPledgeDto>()
+        .ForMember(dest=>dest.CauseCategory, opt=>opt.MapFrom(src=>src.CauseCategory.CauseName))
+        .ForMember(dest =>dest.Status, opt =>opt.MapFrom(src=>(RecordStatus)src.ApprovalStatus));
     }
 }

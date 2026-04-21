@@ -17,7 +17,6 @@ public class DataContext: DbContext
     public DbSet<OfferingGroup> OfferingGroups {get; set;}
     public DbSet<Pledge> Pledges {get; set;}
     public DbSet<Receipts> Receipts {get; set;}
-    public DbSet<RecordStatus> RecordStatuses {get; set;}
     public DbSet<User> Users {get; set;}
     public DbSet<UserRole> UserRoles {get; set;}
 }

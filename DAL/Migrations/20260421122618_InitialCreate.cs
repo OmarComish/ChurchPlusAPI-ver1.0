@@ -111,31 +111,6 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pledges",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CauseCategoryId = table.Column<int>(type: "integer", nullable: false),
-                    PledgedBy = table.Column<string>(type: "text", nullable: true),
-                    AmountPledged = table.Column<double>(type: "double precision", nullable: false),
-                    ActualAmountFulfilled = table.Column<double>(type: "double precision", nullable: false),
-                    DatePledged = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DateFulfilled = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    ReceivedBy = table.Column<int>(type: "integer", nullable: false),
-                    ApprovedBy = table.Column<int>(type: "integer", nullable: false),
-                    DateApproved = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<int>(type: "integer", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Status = table.Column<int>(type: "integer", nullable: false),
-                    DateModified = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pledges", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Receipts",
                 columns: table => new
                 {
@@ -151,23 +126,6 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Receipts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RecordStatuses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    CreatedBy = table.Column<int>(type: "integer", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<int>(type: "integer", nullable: false),
-                    DateModified = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RecordStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -214,6 +172,42 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Pledges",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CauseCategoryId = table.Column<int>(type: "integer", nullable: false),
+                    PledgedBy = table.Column<string>(type: "text", nullable: true),
+                    AmountPledged = table.Column<double>(type: "double precision", nullable: false),
+                    ActualAmountFulfilled = table.Column<double>(type: "double precision", nullable: false),
+                    DatePledged = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DateFulfilled = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    ReceivedBy = table.Column<int>(type: "integer", nullable: false),
+                    ApprovedBy = table.Column<int>(type: "integer", nullable: false),
+                    DateApproved = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<int>(type: "integer", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    DateModified = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pledges", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pledges_CauseCategories_CauseCategoryId",
+                        column: x => x.CauseCategoryId,
+                        principalTable: "CauseCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pledges_CauseCategoryId",
+                table: "Pledges",
+                column: "CauseCategoryId");
         }
 
         /// <inheritdoc />
@@ -221,9 +215,6 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AppLogs");
-
-            migrationBuilder.DropTable(
-                name: "CauseCategories");
 
             migrationBuilder.DropTable(
                 name: "Expenses");
@@ -241,13 +232,13 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                 name: "Receipts");
 
             migrationBuilder.DropTable(
-                name: "RecordStatuses");
-
-            migrationBuilder.DropTable(
                 name: "UserRoles");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "CauseCategories");
         }
     }
 }
