@@ -32,5 +32,4 @@ public class UpdatepldgeDto
         public string CauseCategory { get; set; }
         public string PledgedBy {get; set;}
         public decimal AmountPledged { get; set; }
-        public decimal ActualAmountFulfilled { get; set; }
 }
