@@ -12,6 +12,7 @@ public class DataContext: DbContext
     }
     public DbSet<AppLogs> AppLogs {get; set;}
     public DbSet<CauseCategory> CauseCategories {get; set;}
+    public DbSet<ChurchServiceSession> ChurchServiceSessions { get; set; }
     public DbSet<Expense> Expenses {get; set;}
     public DbSet<Offering> Offerings {get; set;}
     public DbSet<OfferingGroup> OfferingGroups {get; set;}

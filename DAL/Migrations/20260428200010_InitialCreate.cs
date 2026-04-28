@@ -49,6 +49,25 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ChurchServiceSessions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SessionName = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    CreatedBy = table.Column<int>(type: "integer", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedBy = table.Column<int>(type: "integer", nullable: false),
+                    DateModified = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChurchServiceSessions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Expenses",
                 columns: table => new
                 {
@@ -86,28 +105,6 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OfferingGroups", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Offerings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    OfferingGroupId = table.Column<int>(type: "integer", nullable: false),
-                    CollectedBy = table.Column<int>(type: "integer", nullable: false),
-                    Amount = table.Column<double>(type: "double precision", nullable: false),
-                    CollectionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ServiceSession = table.Column<int>(type: "integer", nullable: false),
-                    CheckedBy = table.Column<int>(type: "integer", nullable: false),
-                    DateChecked = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Status = table.Column<int>(type: "integer", nullable: false),
-                    ModifiedBy = table.Column<int>(type: "integer", nullable: false),
-                    DateModified = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Offerings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -181,8 +178,8 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CauseCategoryId = table.Column<int>(type: "integer", nullable: false),
                     PledgedBy = table.Column<string>(type: "text", nullable: true),
-                    AmountPledged = table.Column<double>(type: "double precision", nullable: false),
-                    ActualAmountFulfilled = table.Column<double>(type: "double precision", nullable: false),
+                    AmountPledged = table.Column<decimal>(type: "numeric", nullable: false),
+                    ActualAmountFulfilled = table.Column<decimal>(type: "numeric", nullable: false),
                     DatePledged = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateFulfilled = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     ReceivedBy = table.Column<int>(type: "integer", nullable: false),
@@ -190,7 +187,8 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                     DateApproved = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<int>(type: "integer", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Status = table.Column<int>(type: "integer", nullable: false),
+                    ApprovalStatus = table.Column<int>(type: "integer", nullable: false),
+                    PledgeStatus = table.Column<int>(type: "integer", nullable: false),
                     DateModified = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
@@ -203,6 +201,38 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Offerings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CollectedBy = table.Column<int>(type: "integer", nullable: false),
+                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
+                    CollectionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ServiceSessionId = table.Column<int>(type: "integer", nullable: false),
+                    CheckedBy = table.Column<int>(type: "integer", nullable: false),
+                    DateChecked = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    ModifiedBy = table.Column<int>(type: "integer", nullable: false),
+                    DateModified = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    ChurchServiceSessionId = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Offerings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Offerings_ChurchServiceSessions_ChurchServiceSessionId",
+                        column: x => x.ChurchServiceSessionId,
+                        principalTable: "ChurchServiceSessions",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Offerings_ChurchServiceSessionId",
+                table: "Offerings",
+                column: "ChurchServiceSessionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pledges_CauseCategoryId",
@@ -236,6 +266,9 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "ChurchServiceSessions");
 
             migrationBuilder.DropTable(
                 name: "CauseCategories");

@@ -84,6 +84,40 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                     b.ToTable("CauseCategories");
                 });
 
+            modelBuilder.Entity("ChurchPlusAPI_v1._0.Models.ChurchServiceSession", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SessionName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ChurchServiceSessions");
+                });
+
             modelBuilder.Entity("ChurchPlusAPI_v1._0.Models.Expense", b =>
                 {
                     b.Property<int>("Id")
@@ -135,10 +169,13 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("double precision");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
 
                     b.Property<int>("CheckedBy")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("ChurchServiceSessionId")
                         .HasColumnType("integer");
 
                     b.Property<int>("CollectedBy")
@@ -156,16 +193,15 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                     b.Property<int>("ModifiedBy")
                         .HasColumnType("integer");
 
-                    b.Property<int>("OfferingGroupId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ServiceSession")
+                    b.Property<int>("ServiceSessionId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChurchServiceSessionId");
 
                     b.ToTable("Offerings");
                 });
@@ -378,6 +414,15 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                     b.ToTable("UserRoles");
                 });
 
+            modelBuilder.Entity("ChurchPlusAPI_v1._0.Models.Offering", b =>
+                {
+                    b.HasOne("ChurchPlusAPI_v1._0.Models.ChurchServiceSession", "ChurchServiceSession")
+                        .WithMany("Offerings")
+                        .HasForeignKey("ChurchServiceSessionId");
+
+                    b.Navigation("ChurchServiceSession");
+                });
+
             modelBuilder.Entity("ChurchPlusAPI_v1._0.Models.Pledge", b =>
                 {
                     b.HasOne("ChurchPlusAPI_v1._0.Models.CauseCategory", "CauseCategory")
@@ -392,6 +437,11 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
             modelBuilder.Entity("ChurchPlusAPI_v1._0.Models.CauseCategory", b =>
                 {
                     b.Navigation("Pledges");
+                });
+
+            modelBuilder.Entity("ChurchPlusAPI_v1._0.Models.ChurchServiceSession", b =>
+                {
+                    b.Navigation("Offerings");
                 });
 #pragma warning restore 612, 618
         }

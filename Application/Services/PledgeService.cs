@@ -25,7 +25,7 @@ public class PledgeService : IPledges
         {
             var rs = _mapper.Map<Pledge>(createpledge);
             rs.DatePledged = DateTime.UtcNow;
-            rs.ApprovalStatus = (int)RecordStatus.Pending;
+            rs.ApprovalStatus = RecordStatus.Pending;
 
             await  _context.AddAsync(rs);
             await _context.SaveChangesAsync();
@@ -118,6 +118,7 @@ public class PledgeService : IPledges
         }
         rs.ActualAmountFulfilled = pledge.AmountTendered;
         rs.DateModified = DateTime.UtcNow;
+        rs.ApprovalStatus = RecordStatus.Pending;
         rs.PledgeStatus = rs.ActualAmountFulfilled == rs.AmountPledged? RecordStatus.Ownered:RecordStatus.Pending;
        
         _context.Entry(rs).State = EntityState.Modified;
@@ -140,12 +141,14 @@ public class PledgeService : IPledges
 
         rs.AmountPledged = rs.AmountPledged;
         rs.CauseCategory = rs.CauseCategory;
-        rs.ApprovalStatus = (int)RecordStatus.Pending;
+        rs.ApprovalStatus = RecordStatus.Pending;
         rs.DateModified = DateTime.UtcNow;
         
         
         _context.Entry(rs).State = EntityState.Modified;
         await _context.SaveChangesAsync();
+        response.Status ="success";
+        response.Message ="Changes saved successfully";
         return response;
     }
 }

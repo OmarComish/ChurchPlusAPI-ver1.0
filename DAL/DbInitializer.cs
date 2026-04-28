@@ -34,11 +34,7 @@ public class DbInitializer
             {
                 new(){Id = 1, CauseName ="Church Building Project", CreatedBy = 1, 
                 DateCreated = DateTime.UtcNow, Status = (int)RecordStatus.Active},
-                 new(){Id = 2, CauseName ="Wednesday Church Service", CreatedBy = 1, 
-                DateCreated = DateTime.UtcNow, Status = (int)RecordStatus.Active},
-                 new(){Id = 3, CauseName ="Friday Church Service", CreatedBy = 1, 
-                DateCreated = DateTime.UtcNow, Status = (int)RecordStatus.Active},
-                 new(){Id = 4, CauseName ="Sunday Church Service", CreatedBy = 1, 
+                 new(){Id = 2, CauseName ="Church Service Offering", CreatedBy = 1, 
                 DateCreated = DateTime.UtcNow, Status = (int)RecordStatus.Active},
                  new(){Id = 5, CauseName ="Funeral Condolences", CreatedBy = 1, 
                 DateCreated = DateTime.UtcNow, Status = (int)RecordStatus.Active},
@@ -48,6 +44,24 @@ public class DbInitializer
             context.AddRange(_causecategories);
             context.SaveChanges();
             Console.WriteLine("Seeding user cause category data complete");
+        }
+        if(!context.ChurchServiceSessions.Any())
+        {
+             Console.WriteLine("Seeding Church sessions data intiated...");
+             var _churchsessions = new List<ChurchServiceSession>
+             {
+                 new(){Id =1, SessionName="Sunday service", CreatedBy = 1, 
+                 DateCreated = DateTime.UtcNow, Status = RecordStatus.Active, },
+                 new(){Id =2, SessionName="Wednesday service", CreatedBy = 1, 
+                 DateCreated = DateTime.UtcNow, Status = RecordStatus.Active, },
+                 new(){Id =3, SessionName="Friday service", CreatedBy = 1, 
+                 DateCreated = DateTime.UtcNow, Status = RecordStatus.Active, }
+             };
+
+             context.AddRange(_churchsessions);
+             context.SaveChanges();
+
+             Console.WriteLine("Seeding Church sessions data complete");
         }
     }
 }

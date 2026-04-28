@@ -20,7 +20,7 @@ namespace ChurchPlusAPI_v1._0.Models
         public DateTime DateApproved { get; set; }
         public int CreatedBy {get; set;}
         public DateTime DateCreated {get; set;}  
-        public int ApprovalStatus { get; set; }
+        public RecordStatus ApprovalStatus { get; set; }
         public RecordStatus PledgeStatus {get; set;}
         
         public DateTime? DateModified { get; set; }

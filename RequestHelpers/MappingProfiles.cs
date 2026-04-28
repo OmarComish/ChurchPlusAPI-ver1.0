@@ -11,5 +11,10 @@ public class MappingProfiles: Profile
         CreateMap<Pledge, ReadPledgeDto>()
         .ForMember(dest=>dest.CauseCategory, opt=>opt.MapFrom(src=>src.CauseCategory.CauseName))
         .ForMember(dest =>dest.Status, opt =>opt.MapFrom(src=>(RecordStatus)src.ApprovalStatus));
+
+        CreateMap<Offering, CreateOfferingDto>().ReverseMap();
+        CreateMap<Offering, ReadOfferingDto>()
+          .ForMember(dest=>dest.ServiceSession, opt=>opt.MapFrom(src=>src.ChurchServiceSession.SessionName))
+          .ForMember(dest=>dest.Status, opt=>opt.MapFrom(src=>(RecordStatus)src.Status));
     }
 }

@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddTransient<IPledges, PledgeService>();
+builder.Services.AddTransient<IOffering, OfferingService>();
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 builder.Services.AddDbContext<DataContext>(options=>{
 
