@@ -19,7 +19,7 @@ public class OfferingsController: ControllerBase
         var response = new ResponseDto {Status ="error", Message ="Null offering data. Could not save to database"};
         if(dto!= null)
         {
-            dto.CollectedBy = "admin"; //Hardcoded value. Replace with actual user who received the pledge
+            //dto.CollectedBy = "admin"; //Hardcoded value. Replace with actual user who received the pledge
             response = await _offerings.Create(dto);
         }
         return Ok(response);

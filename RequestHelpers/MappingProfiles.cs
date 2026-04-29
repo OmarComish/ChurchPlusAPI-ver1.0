@@ -12,7 +12,10 @@ public class MappingProfiles: Profile
         .ForMember(dest=>dest.CauseCategory, opt=>opt.MapFrom(src=>src.CauseCategory.CauseName))
         .ForMember(dest =>dest.Status, opt =>opt.MapFrom(src=>(RecordStatus)src.ApprovalStatus));
 
-        CreateMap<Offering, CreateOfferingDto>().ReverseMap();
+        CreateMap<CreateOfferingDto, Offering>()
+        .ForMember(dest=>dest.ChurchServiceSession, opt=>opt.Ignore())
+        .ForMember(dest => dest.ServiceSessionId, opt => opt.MapFrom(src => src.ServiceSessionId));
+
         CreateMap<Offering, ReadOfferingDto>()
           .ForMember(dest=>dest.ServiceSession, opt=>opt.MapFrom(src=>src.ChurchServiceSession.SessionName))
           .ForMember(dest=>dest.Status, opt=>opt.MapFrom(src=>(RecordStatus)src.Status));

@@ -12,19 +12,26 @@ public class OfferingService : IOffering
 {
     private readonly DataContext _context;
     private readonly IMapper _mapper;
+    public OfferingService(DataContext context, IMapper mapper)
+    {
+        _context = context;
+        _mapper = mapper;
+    }
     public async Task<ResponseDto> Create(CreateOfferingDto dto)
     {
         var response = new ResponseDto{Status ="error", Message ="Failed to add Offering"};
         if(dto!=null)
         {
             var rs = _mapper.Map<Offering>(dto);
+            rs.CollectedBy = 1;
             rs.CollectionDate = DateTime.UtcNow;
+            rs.Status = RecordStatus.Pending;
             
             await  _context.AddAsync(rs);
             await _context.SaveChangesAsync();
             
             response.Status ="success";
-            response.Message =$"Offering for {rs.ServiceSessionId} added successully!";
+            response.Message =$"Offering for {rs.ChurchServiceSession} added successully!";
         }
         return response;
     }
