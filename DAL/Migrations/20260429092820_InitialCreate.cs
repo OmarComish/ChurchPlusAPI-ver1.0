@@ -74,7 +74,7 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Description = table.Column<string>(type: "text", nullable: true),
-                    Amount = table.Column<double>(type: "double precision", nullable: false),
+                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
                     DateIncurred = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ReceiptNumber = table.Column<int>(type: "integer", nullable: false),
                     Purpose = table.Column<string>(type: "text", nullable: true),
@@ -82,7 +82,10 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ModifiedBy = table.Column<int>(type: "integer", nullable: false),
                     DateModified = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Status = table.Column<int>(type: "integer", nullable: false)
+                    ExpenseStatus = table.Column<int>(type: "integer", nullable: false),
+                    ApprovedBy = table.Column<int>(type: "integer", nullable: false),
+                    DateApproved = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ApprovalStatus = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

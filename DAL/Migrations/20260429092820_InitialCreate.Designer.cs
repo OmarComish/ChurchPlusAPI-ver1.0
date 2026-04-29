@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChurchPlusAPI_v1._0.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260428200010_InitialCreate")]
+    [Migration("20260429092820_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -129,11 +129,20 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("double precision");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("ApprovalStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ApprovedBy")
+                        .HasColumnType("integer");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("DateApproved")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
@@ -147,6 +156,9 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
+                    b.Property<int>("ExpenseStatus")
+                        .HasColumnType("integer");
+
                     b.Property<int>("ModifiedBy")
                         .HasColumnType("integer");
 
@@ -154,9 +166,6 @@ namespace ChurchPlusAPI_v1._0.DAL.Migrations
                         .HasColumnType("text");
 
                     b.Property<int>("ReceiptNumber")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

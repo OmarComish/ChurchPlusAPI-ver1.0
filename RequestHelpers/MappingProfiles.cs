@@ -16,5 +16,10 @@ public class MappingProfiles: Profile
         CreateMap<Offering, ReadOfferingDto>()
           .ForMember(dest=>dest.ServiceSession, opt=>opt.MapFrom(src=>src.ChurchServiceSession.SessionName))
           .ForMember(dest=>dest.Status, opt=>opt.MapFrom(src=>(RecordStatus)src.Status));
+
+        CreateMap<Expense, CreateExpenseDto>().ReverseMap();
+        CreateMap<Expense, ReadExpenseDto>()
+        .ForMember(dest=>dest.ApprovalStatus, opt=>opt.MapFrom(src=>(RecordStatus)src.ApprovalStatus))
+        .ForMember(dest=>dest.ExpenseStatus, opt=>opt.MapFrom(src=>(RecordStatus)src.ExpenseStatus));
     }
 }

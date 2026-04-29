@@ -9,9 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddTransient<IPledges, PledgeService>();
 builder.Services.AddTransient<IOffering, OfferingService>();
+builder.Services.AddTransient<IExpenses, ExpenseService>();
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
-builder.Services.AddDbContext<DataContext>(options=>{
 
+builder.Services.AddDbContext<DataContext>(options=>{
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 
   /* opt.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),new MySqlServerVersion(new Version(8,0,29)))
