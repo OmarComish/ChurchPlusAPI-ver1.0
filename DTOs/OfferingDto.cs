@@ -1,7 +1,6 @@
 public class CreateOfferingDto
 {
      public int ServiceSessionId { get; set; }
-     public string CollectedBy { get; set; } = null;
      public decimal Amount { get; set; }
 }
 public class ReadOfferingDto

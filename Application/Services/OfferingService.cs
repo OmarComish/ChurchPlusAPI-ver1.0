@@ -17,13 +17,13 @@ public class OfferingService : IOffering
         _context = context;
         _mapper = mapper;
     }
-    public async Task<ResponseDto> Create(CreateOfferingDto dto)
+    public async Task<ResponseDto> Create(CreateOfferingDto dto, int collectedBy)
     {
         var response = new ResponseDto{Status ="error", Message ="Failed to add Offering"};
         if(dto!=null)
         {
             var rs = _mapper.Map<Offering>(dto);
-            rs.CollectedBy = 1;
+            rs.CollectedBy = collectedBy;
             rs.CollectionDate = DateTime.UtcNow;
             rs.Status = RecordStatus.Pending;
             
