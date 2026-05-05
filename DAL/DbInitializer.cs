@@ -45,6 +45,7 @@ public class DbInitializer
             context.SaveChanges();
             Console.WriteLine("Seeding user cause category data complete");
         }
+        
         if(!context.ChurchServiceSessions.Any())
         {
              Console.WriteLine("Seeding Church sessions data intiated...");
