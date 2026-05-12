@@ -38,7 +38,7 @@ public class PledgesController: ControllerBase
         return Ok(response);
     }
     [HttpPut]
-    public async Task<ActionResult<ResponseDto>> UpdatePledge(UpdatepldgeDto dto)
+    public async Task<ActionResult<ResponseDto>> UpdatePledge(UpdatePledgeDto dto)
     {
         var response = await _pledges.Update(dto);
         return Ok(response);

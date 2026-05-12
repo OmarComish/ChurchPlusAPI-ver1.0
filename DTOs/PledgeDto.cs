@@ -26,10 +26,9 @@ public class OwnerPledgeDto
         public decimal AmountTendered { get; set; }
         public int ReceivedBy { get; set; }
 }
-public class UpdatepldgeDto
+public class UpdatePledgeDto
 {
         public int Id { get; set; }
-        public string CauseCategory { get; set; }
-        public string PledgedBy {get; set;}
+        public int CauseCategoryId { get; set; }
         public decimal AmountPledged { get; set; }
 }
