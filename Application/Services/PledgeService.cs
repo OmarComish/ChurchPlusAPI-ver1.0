@@ -129,7 +129,7 @@ public class PledgeService : IPledges
         return response;
     }
 
-    public async Task<ResponseDto> Update(UpdatepldgeDto pledge)
+    public async Task<ResponseDto> Update(UpdatePledgeDto pledge)
     {
         var response = new ResponseDto{Status ="error", Message ="Failed to save changes"};
         var rs = await _context.Pledges.Where(p =>p.Id == pledge.Id).FirstOrDefaultAsync();
@@ -139,8 +139,8 @@ public class PledgeService : IPledges
             return response;
         }
 
-        rs.AmountPledged = rs.AmountPledged;
-        rs.CauseCategory = rs.CauseCategory;
+         _mapper.Map(pledge, rs);
+
         rs.ApprovalStatus = RecordStatus.Pending;
         rs.DateModified = DateTime.UtcNow;
         

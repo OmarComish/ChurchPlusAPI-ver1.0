@@ -7,5 +7,5 @@ public interface IPledges
      Task<ResponseDto> GetPledgesList();
      Task<ResponseDto> GetPledgeById(int pledgeId, CancellationToken cancellationToken = default);
      Task<ResponseDto> OwnerPledge(OwnerPledgeDto plegde);
-     Task<ResponseDto> Update(UpdatepldgeDto pledge);
+     Task<ResponseDto> Update(UpdatePledgeDto pledge);
 }
