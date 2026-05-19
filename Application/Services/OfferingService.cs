@@ -107,7 +107,7 @@ public class OfferingService : IOffering
         return response;
     }
 
-    public Task<ResponseDto> Update(UpdatepldgeDto pledge)
+    public Task<ResponseDto> Update(UpdatePledgeDto pledge)
     {
         throw new NotImplementedException();
     }

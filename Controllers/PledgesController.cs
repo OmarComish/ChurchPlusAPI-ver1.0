@@ -1,5 +1,6 @@
 using ChurchPlusAPI_v1._0.Application.Interfaces;
 using ChurchPlusAPI_v1._0.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChurchPlusAPI_v1._0.Controllers;
@@ -14,6 +15,7 @@ public class PledgesController: ControllerBase
     {
         _pledges = pledges;
     }
+    [Authorize(Policy = "ApiScope")]
     [HttpPost]
     public async Task<ActionResult<ResponseDto>> AddPledge(CreatePledgeDto pledgedto)
     {
@@ -25,18 +27,21 @@ public class PledgesController: ControllerBase
         }
         return Ok(response);
     }
+    [Authorize(Policy = "ApiScope")]
     [HttpGet("{Id}")]
     public async Task<ActionResult<ResponseDto>> GetPledgeById(int Id)
     {
         var response = await _pledges.GetPledgeById(Id);
         return Ok(response);
     }
+    [Authorize(Policy = "ApiScope")]
     [HttpGet]
     public async Task<ActionResult<ResponseDto>> GetPledges()
     {
         var response = await _pledges.GetPledgesList();
         return Ok(response);
     }
+    [Authorize(Policy = "ApiScope")]
     [HttpPut]
     public async Task<ActionResult<ResponseDto>> UpdatePledge(UpdatePledgeDto dto)
     {

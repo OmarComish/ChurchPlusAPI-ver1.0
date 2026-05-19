@@ -1,5 +1,6 @@
 using ChurchPlusAPI_v1._0.Application.Interfaces;
 using ChurchPlusAPI_v1._0.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChurchPlusAPI_v1._0.Controllers;
@@ -13,6 +14,7 @@ public class OfferingsController: ControllerBase
     {
         _offerings = offerings;
     }
+    [Authorize(Policy = "ApiScope")]
     [HttpPost]
     public async Task<ActionResult<ResponseDto>> AddOffering(CreateOfferingDto dto)
     {
@@ -24,12 +26,14 @@ public class OfferingsController: ControllerBase
         }
         return Ok(response);
     }
+    [Authorize(Policy = "ApiScope")]
     [HttpGet("{Id}")]
     public async Task<ActionResult<ResponseDto>> GetOfferingById(int Id)
     {
         var response = await _offerings.GetOfferingById(Id);
         return Ok(response);
     }
+    [Authorize(Policy = "ApiScope")]
     [HttpGet]
     public async Task<ActionResult<ResponseDto>> GetOfferings()
     {
